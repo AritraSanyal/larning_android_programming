@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Login Screen</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="remember_me">Remember me?</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="choose_g">Choose Google Account</string>
+    <string name="choose_l">Choose from LinkedIn Accuount</string>
+    <string name="choose_f">Choose form Facebook Account</string>
+    <string name="signup">Need an account? SIGN UP</string>
+</resources>

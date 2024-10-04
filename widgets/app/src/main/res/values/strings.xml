@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">widgets</string>
+    <string name="onYesSelect">Yes was selected</string>
+    <string name="btnTxt">Click to show dialog!</string>
+    <string name="onNoSelection">No was selected</string>
+    <string name="billAmount">Enter your Bill Amount</string>
+    <string name="selectTip">Select Tip amount</string>
+    <string name="finalBtnString">Display Final Bill Amount!</string>
+
+    <string name="selected_tip">Selected tip: %1$d%%</string>
+    <string name="total_bill">Your total Bill is Rs. %1$.2f</string>
+    <string name="bill_amount_not_entered">Bill Amount is Not Entered!!!!</string>
+    <string name="invalid_bill_amount">Invalid Bill Amount</string>
+    <string name="show_ad">Click me to Show Alert Dialog</string>
+    <string name="cus_ad_txt_main">Custom Alert Dialog Box</string>
+</resources>
