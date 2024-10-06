@@ -1,5 +1,6 @@
 package Adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.recycleview.R;
 
+import java.util.List;
+
+import Models.ListItems;
+
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
+
+//    private final Context context;
+    private final List<ListItems> arraylist;
+
+    public MyAdapter( List<ListItems> arrayList) {
+//        this.context = context;
+        this.arraylist = arrayList;
+    }
 
     @NonNull
     @Override
@@ -23,21 +36,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
-        holder.txtTitle.setText("I have been changed from adapter");
-        holder.txtDescription.setText("I have also been changed from adapter");
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int index) {
+        ListItems item = arraylist.get(index);
+        holder.txtTitle.setText(item.getTitle());
+        holder.txtDescription.setText(item.getDescription());
     }
 
 
     @Override
     public int getItemCount() {
-        return 30;
+        return arraylist.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView txtTitle, txtDescription;
+        private final TextView txtTitle;
+        private final TextView txtDescription;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Adapter.MyAdapter;
@@ -29,9 +30,12 @@ public class MainActivity extends AppCompatActivity {
         rcView = findViewById(R.id.rcView);
         rcView.setHasFixedSize(true);
         rcView.setLayoutManager(new LinearLayoutManager(this));
+        arrayList = new ArrayList<>();
 
-        for(int i = 0; i <= 10; i++){
-            ListItems items = new ListItems("Title " + i+1, "description"+)
+        // ADDING INTO THE LIST ITEM FOR TI TO BE SHOWN IN THE ADAPTER AND THE CARD VIEW
+        for(int i = 0; i < 100; i++){
+            ListItems items = new ListItems("Title " + (i+1), "Description "+(i+1));
+            arrayList.add(items);
         }
 
         adapter = new MyAdapter(arrayList);
