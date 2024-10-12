@@ -58,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
                 editor.commit();
                 stdIdTxtView.setVisibility(View.VISIBLE);
                 stdIdTxtView.setText(saved);
+                fNameTxtView.setVisibility(View.GONE);
+                lNameTxtView.setVisibility(View.GONE);
+                specTxtView.setVisibility(View.GONE);
+
             }
         });
 
