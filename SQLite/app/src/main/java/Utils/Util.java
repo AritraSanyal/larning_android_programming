@@ -8,7 +8,7 @@ public class Util {
     //for maintaining version
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "contactDB";
-    public static final String DATABASE_TABLE_NAME = "contacts";
+    public static final String DATABASE_TABLE = "contacts";
 
     // why static,
     public static final String KEY_ID = "id", KEY_NAME = "name", KEY_PHONE_NUMBER = "phoneNo";
