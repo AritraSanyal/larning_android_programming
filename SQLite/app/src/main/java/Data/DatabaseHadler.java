@@ -116,6 +116,12 @@ public class DatabaseHadler extends SQLiteOpenHelper {
 
     }
 
+    public void deleteAllContacts(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(Util.DATABASE_TABLE, null, null);
+        db.close();
+    }
+
 
 
 

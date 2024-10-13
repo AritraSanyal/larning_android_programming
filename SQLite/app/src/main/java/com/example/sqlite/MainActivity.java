@@ -27,20 +27,21 @@ public class MainActivity extends AppCompatActivity {
         try (DatabaseHadler db = new DatabaseHadler(MainActivity.this)) {
             db.addContact(new Contact("Aritra", "000"));
             db.addContact(new Contact("Aparna", "111"));
-//            db.addContact(new Contact("Ashesh", "222"));
-//            db.addContact(new Contact("Anamika", "333"));
-//            db.addContact(new Contact("Arunima", "444"));
-//            db.addContact(new Contact("Arindam", "555"));
-//            db.addContact(new Contact("Avinash", "666"));
-//            db.addContact(new Contact("Arin", "777"));
-//            db.addContact(new Contact("Atrim", "888"));
-//            db.addContact(new Contact("Ankita", "999"));
+            db.addContact(new Contact("Ashesh", "222"));
+            db.addContact(new Contact("Anamika", "333"));
+            db.addContact(new Contact("Arunima", "444"));
+            db.addContact(new Contact("Arindam", "555"));
+            db.addContact(new Contact("Avinash", "666"));
+            db.addContact(new Contact("Arin", "777"));
+            db.addContact(new Contact("Atrim", "888"));
+            db.addContact(new Contact("Ankita", "999"));
 
             List<Contact> getAllContacts = db.getAllContacts();
             for (Contact contact : getAllContacts) {
                 Log.d("TAG", "onCreate Main Activity DatabaseHandler: " + contact.getName() + " " + contact.getPhoneNo());
-//                System.out.println(contact.getName() + " " + contact.getPhoneNo());
+                System.out.println(contact.getName() + " " + contact.getPhoneNo());
             }
+//            db.deleteAllContacts();
 
         } catch (Exception e) {
             Log.d("TAG", "onCreate Main Activity DatabaseHandler Exception: " + e.getMessage());
