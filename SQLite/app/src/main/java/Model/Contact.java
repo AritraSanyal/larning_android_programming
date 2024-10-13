@@ -2,7 +2,8 @@ package Model;
 
 public class Contact {
 
-    private String name, phoneNo;
+    private String name;
+    private String phoneNo;
     private int id;
 
 
