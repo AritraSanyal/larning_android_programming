@@ -4,4 +4,5 @@
     <string name="phoneTview">Phone Number</string>
     <string name="nameHint">Enter the name of the contact\n</string>
     <string name="phoneNumberHint">Enter the Phone Number</string>
+    <string name="savebtn">Save!!!</string>
 </resources>

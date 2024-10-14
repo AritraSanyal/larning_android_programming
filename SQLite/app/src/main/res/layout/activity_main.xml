@@ -9,8 +9,9 @@
     >
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/saveContactCard"
         android:layout_width="375dp"
-        android:layout_height="500dp"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         app:cardCornerRadius="30dp"
         >
@@ -54,12 +55,25 @@
                 android:hint="@string/phoneNumberHint"
                 />
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <Button
+                android:id="@+id/saveBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/savebtn"/>
+
         </LinearLayout>
 
 
 
 
+
+
     </androidx.cardview.widget.CardView>
+
 
 
 
