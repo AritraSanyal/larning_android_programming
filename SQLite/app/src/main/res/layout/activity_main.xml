@@ -34,11 +34,13 @@
                 android:id="@+id/nameEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autofillHints="Full Name"
                 android:hint="@string/nameHint"/>
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />
+
 
             <TextView
                 android:id="@+id/phoneTextViewview"
@@ -52,8 +54,10 @@
                 android:id="@+id/phoneNoEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autofillHints="Phone Number"
                 android:hint="@string/phoneNumberHint"
-                />
+                android:inputType="number"
+                tools:ignore="TextFields" />
 
             <Space
                 android:layout_width="match_parent"
