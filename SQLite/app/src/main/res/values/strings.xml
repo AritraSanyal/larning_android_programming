@@ -2,7 +2,7 @@
     <string name="app_name">SQLite</string>
     <string name="nameTview">Name</string>
     <string name="phoneTview">Phone Number</string>
-    <string name="nameHint">Enter the name of the contact\n</string>
+    <string name="nameHint">Enter the name of the contact</string>
     <string name="phoneNumberHint">Enter the Phone Number</string>
     <string name="savebtn">Save!!!</string>
 </resources>

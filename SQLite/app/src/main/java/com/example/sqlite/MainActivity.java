@@ -13,9 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 //import androidx.core.view.ViewCompat;
 //import androidx.core.view.WindowInsetsCompat;
 
-import Data.DatabaseHadler;
+import Data.DatabaseHandler;
 import Model.Contact;
-import com.example.sqlite.R;
 
 import java.util.List;
 
@@ -37,29 +36,22 @@ public class MainActivity extends AppCompatActivity {
         phoneNoEditText = findViewById(R.id.phoneNoEditText);
         saveBtn = findViewById(R.id.saveBtn);
 
-//        //CONNECTING WITH THE VIEW
-//        try (DatabaseHadler db = new DatabaseHadler(MainActivity.this)) {
-//            db.addContact(new Contact("Aritra", "000"));
-//            db.addContact(new Contact("Aparna", "111"));
-//            db.addContact(new Contact("Ashesh", "222"));
-//            db.addContact(new Contact("Anamika", "333"));
-//            db.addContact(new Contact("Arunima", "444"));
-//            db.addContact(new Contact("Arindam", "555"));
-//            db.addContact(new Contact("Avinash", "666"));
-//            db.addContact(new Contact("Arin", "777"));
-//            db.addContact(new Contact("Atrim", "888"));
-//            db.addContact(new Contact("Ankita", "999"));
-//
-//            List<Contact> getAllContacts = db.getAllContacts();
-//            for (Contact contact : getAllContacts) {
-//                Log.d("TAG", "onCreate Main Activity DatabaseHandler: " + contact.getName() + " " + contact.getPhoneNo());
-//                System.out.println(contact.getName() + " " + contact.getPhoneNo());
-//            }
-////            db.deleteAllContacts();
-//
-//        } catch (Exception e) {
-//            Log.d("TAG", "onCreate Main Activity DatabaseHandler Exception: " + e.getMessage());
-//        }
+        // CLEARING THE DATABASE
+        try (DatabaseHandler db = new DatabaseHandler(MainActivity.this)) {
+
+            db.deleteAllContacts();
+
+            Log.d(
+                    "TAG",
+                    "onCrate MainActivity DatabaseHandler Deleting All Previous Contacts"
+            );
+
+        } catch (Exception e) {
+            Log.d(
+                    "TAG",
+                    "onCreate Main Activity DatabaseHandler Exception: " + e.getMessage()
+            );
+        }
 
     }
 
@@ -67,21 +59,49 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-
+        // ADDING THE CLICK LISTENER TO THE SAVE BUTTON
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // GETTING THE EDIT TEXTS
                 String name = nameEditText.getText().toString();
                 String phoneNo = phoneNoEditText.getText().toString();
+
+                // CHECKING IF THE FIELDS ARE EMPTY IF NOT THEN SAVE THE CONTACT
                 if (name.isEmpty() || phoneNo.isEmpty()) {
-                    Toast.makeText(MainActivity.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(
+                            MainActivity.this,
+                            "Please enter all the fields",
+                            Toast.LENGTH_SHORT
+                    ).show();
                 } else {
-                    try (DatabaseHadler db = new DatabaseHadler(MainActivity.this)) {
+                    try (DatabaseHandler db = new DatabaseHandler(MainActivity.this)) {
                         db.addContact(new Contact(name, phoneNo));
-                        Toast.makeText(MainActivity.this, "Contact saved successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(
+                                MainActivity.this,
+                                "Contact saved successfully",
+                                Toast.LENGTH_SHORT).show();
+
+                        // AFTER ADDING SHOWING THE ALL THE CONTACTS THERE IS
+                        List<Contact> getAllContacts = db.getAllContacts();
+                        for (Contact contact : getAllContacts) {
+                            Log.d(
+                                    "TAG",
+                                    "onStart Main Activity DatabaseHandler: " + contact.getName() + " " + contact.getPhoneNo()
+                            );
+//                            System.out.println(contact.getName() + " " + contact.getPhoneNo());
+                        }
+
                     } catch (Exception e) {
-                        Log.d("TAG", "onCreate Main Activity DatabaseHandler Entry Exception: " + e.getMessage());
-                        Toast.makeText(MainActivity.this, "Error saving contact to database", Toast.LENGTH_SHORT).show();
+                        Log.d(
+                                "TAG",
+                                "onStart Main Activity DatabaseHandler Entry Exception: " + e.getMessage()
+                        );
+                        Toast.makeText(
+                                MainActivity.this,
+                                "Error saving contact to database",
+                                Toast.LENGTH_SHORT
+                        ).show();
                     }
                 }
             }
@@ -89,29 +109,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        try (DatabaseHadler db = new DatabaseHadler(MainActivity.this)) {
-//            db.deleteAllContacts();
-//            Toast.makeText(MainActivity.this, "All contacts deleted", Toast.LENGTH_SHORT).show();
-//        } catch (Exception e) {
-//            Log.d("TAG", "onCreate Main Activity DatabaseHandler deleteAllContacts Exception: " + e.getMessage());
-//        }
-//    }
-
-
-//    @Override
-//    public void onTrimMemory(int level) {
-//        super.onTrimMemory(level);
-//
-//        if(level == TRIM_MEMORY_UI_HIDDEN){
-//            try (DatabaseHadler db = new DatabaseHadler(MainActivity.this)) {
-//                db.deleteAllContacts();
-//                Toast.makeText(MainActivity.this, "All contacts deleted", Toast.LENGTH_SHORT).show();
-//            } catch (Exception e) {
-//                Log.d("TAG", "onCreate Main Activity DatabaseHandler deleteAllContacts Exception: " + e.getMessage());
-//            }
-//        }
-//    }
 }
