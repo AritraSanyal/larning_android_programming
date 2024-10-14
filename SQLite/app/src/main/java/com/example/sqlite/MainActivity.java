@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText nameEditText;
     private EditText phoneNoEditText;
     private Button saveBtn;
+    private Button cancelBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,23 +36,31 @@ public class MainActivity extends AppCompatActivity {
         nameEditText = findViewById(R.id.nameEditText);
         phoneNoEditText = findViewById(R.id.phoneNoEditText);
         saveBtn = findViewById(R.id.saveBtn);
+        cancelBtn = findViewById(R.id.cancelBtn);
 
-        // CLEARING THE DATABASE
-        try (DatabaseHandler db = new DatabaseHandler(MainActivity.this)) {
+         // CLEARING THE DATABASE
+//        try (DatabaseHandler db = new DatabaseHandler(MainActivity.this)) {
+//
+//            db.deleteAllContacts();
+//
+//            Log.d(
+//                    "TAG",
+//                    "onCrate MainActivity DatabaseHandler Deleting All Previous Contacts"
+//            );
+//
+//        } catch (Exception e) {
+//            Log.d(
+//                    "TAG",
+//                    "onCreate Main Activity DatabaseHandler Exception: " + e.getMessage()
+//            );
+//        }
 
-            db.deleteAllContacts();
-
-            Log.d(
-                    "TAG",
-                    "onCrate MainActivity DatabaseHandler Deleting All Previous Contacts"
-            );
-
-        } catch (Exception e) {
-            Log.d(
-                    "TAG",
-                    "onCreate Main Activity DatabaseHandler Exception: " + e.getMessage()
-            );
-        }
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 
@@ -81,16 +90,17 @@ public class MainActivity extends AppCompatActivity {
                                 MainActivity.this,
                                 "Contact saved successfully",
                                 Toast.LENGTH_SHORT).show();
+                        finish();
 
                         // AFTER ADDING SHOWING THE ALL THE CONTACTS THERE IS
-                        List<Contact> getAllContacts = db.getAllContacts();
-                        for (Contact contact : getAllContacts) {
-                            Log.d(
-                                    "TAG",
-                                    "onStart Main Activity DatabaseHandler: " + contact.getName() + " " + contact.getPhoneNo()
-                            );
-//                            System.out.println(contact.getName() + " " + contact.getPhoneNo());
-                        }
+//                        List<Contact> getAllContacts = db.getAllContacts();
+//                        for (Contact contact : getAllContacts) {
+//                            Log.d(
+//                                    "TAG",
+//                                    "onStart Main Activity DatabaseHandler: " + contact.getName() + " " + contact.getPhoneNo()
+//                            );
+////                            System.out.println(contact.getName() + " " + contact.getPhoneNo());
+//                        }
 
                     } catch (Exception e) {
                         Log.d(
@@ -104,7 +114,10 @@ public class MainActivity extends AppCompatActivity {
                         ).show();
                     }
                 }
+
             }
+
+
         });
 
     }

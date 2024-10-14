@@ -42,10 +42,10 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
     }
 
     public static class ContactViewHolder extends RecyclerView.ViewHolder {
-        public TextView nameTextView;
-        public TextView phoneTextView;
+        TextView nameTextView;
+        TextView phoneTextView;
 
-        public ContactViewHolder(View itemView) {
+        public ContactViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.nameTextView);
             phoneTextView = itemView.findViewById(R.id.phoneTextView);

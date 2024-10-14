@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="20dp"
+        android:padding="10dp"
+        >
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/titleContactPage"
+            android:textSize="30sp"
+            android:fontFamily=""
+            android:textStyle="bold"
+            android:layout_weight="1"
+            />
+
+
+        <Button
+            android:id="@+id/addContactButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/add_contact_icon"
+
+            />
+
+<!--        <Button-->
+<!--            android:id="@+id/menuButton"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:background="@drawable/menu_icon"-->
+
+<!--            />-->
+
+
+    </LinearLayout>
+
+
+<!--    RECYCLER VIEW WILL GO HERE-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="20dp"/>
+
+
+</LinearLayout>
