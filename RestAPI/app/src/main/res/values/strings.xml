@@ -3,4 +3,6 @@
     <string name="titleFull">Pokémon\nEncyclopedia</string>
     <string name="titleFirst">Pokémon</string>
     <string name="titleSecond">Encyclopedia</string>
+    <string name="demoPokemonImage">https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png</string>
+    <string name="pok_mon_image">Pokémon Image</string>
 </resources>
