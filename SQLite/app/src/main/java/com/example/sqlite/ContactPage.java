@@ -22,6 +22,7 @@ public class ContactPage extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ContactAdapter contactAdapter;
     private Button addContactButton;
+    private Button deleteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class ContactPage extends AppCompatActivity {
         addContactButton = findViewById(R.id.addContactButton);
         recyclerView = findViewById(R.id.recyclerView);
         addContactButton = findViewById(R.id.addContactButton);
+        deleteButton = findViewById(R.id.deleteButton);
 
 
         addContactButton.setOnClickListener(new View.OnClickListener() {
@@ -42,6 +44,8 @@ public class ContactPage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
 
 
 
@@ -58,6 +62,16 @@ public class ContactPage extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         contactAdapter = new ContactAdapter(contactList);
         recyclerView.setAdapter(contactAdapter);
+
+        // Handle delete button click
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int contactCount = contactList.size();
+                db.deleteAllContacts();
+            }
+        });
+
 
     }
 }

@@ -34,6 +34,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         Contact contact = contactList.get(position);
         holder.nameTextView.setText(contact.getName());
         holder.phoneTextView.setText(contact.getPhoneNo());
+
     }
 
     @Override
