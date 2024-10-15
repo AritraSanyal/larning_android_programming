@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.restapi.R;
 
+import java.text.BreakIterator;
 import java.util.List;
 
 import Model.Pokemon;
@@ -41,6 +42,7 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonV
         holder.pokemonTypeTextView.setText(pokemon.getType());
         holder.pokemonAttributesTextView.setText(pokemon.getAbilities());
         holder.pokemonIDTextView.setText(String.valueOf(pokemon.getId()));
+        holder.pokemonLocationTextView.setText(pokemon.getLocation());
 
         // Load the image using Glide or any other image loading library
         Glide.with(context)
@@ -55,7 +57,8 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonV
 
     public class PokemonViewHolder extends RecyclerView.ViewHolder {
 
-        TextView pokemonNameTextView, pokemonTypeTextView, pokemonAttributesTextView, pokemonIDTextView;
+
+        TextView pokemonNameTextView, pokemonTypeTextView, pokemonAttributesTextView, pokemonIDTextView,pokemonLocationTextView;
         ImageView pokemonImageView;
 
         public PokemonViewHolder(@NonNull View itemView) {
@@ -65,6 +68,7 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonV
             pokemonAttributesTextView = itemView.findViewById(R.id.pokemonAttributesTextView);
             pokemonIDTextView = itemView.findViewById(R.id.pokemonIDTextView);
             pokemonImageView = itemView.findViewById(R.id.pokemonImageView);
+            pokemonLocationTextView = itemView.findViewById(R.id.pokemonLocationTextView);
         }
     }
 }

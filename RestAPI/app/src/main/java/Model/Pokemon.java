@@ -7,27 +7,22 @@ public class Pokemon {
     private String type;
     private String abilities;
     private String imageURL;
+    private String location;
 
 
     public Pokemon() {
     }
 
-    public Pokemon(int id) {
-        this.id = id;
-    }
 
-    public Pokemon(String name) {
-        this.name = name;
-    }
 
-    public Pokemon(int id, String name, String type, String abilities, String imageURL) {
+    public Pokemon(int id, String name, String type, String abilities, String imageURL, String location) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.abilities = abilities;
         this.imageURL = imageURL;
+        this.location = location;
     }
-
 
     public int getId() {
         return id;
@@ -67,5 +62,13 @@ public class Pokemon {
 
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

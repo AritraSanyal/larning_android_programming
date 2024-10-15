@@ -96,9 +96,10 @@ public class MainActivity extends AppCompatActivity {
                                 String type = jsonObject.getString("type");
                                 String abilities = jsonObject.getString("abilities");
                                 String imageURL = jsonObject.getString("image_url");
+                                String location = jsonObject.getString("location");
 
                                 // Create a Pokemon object and add it to the list
-                                Pokemon pokemon = new Pokemon(id, name, type, abilities, imageURL);
+                                Pokemon pokemon = new Pokemon(id, name, type, abilities, imageURL, location);
                                 pokemonList.add(pokemon);
                             }
 
