@@ -94,7 +94,18 @@ public class MainActivity extends AppCompatActivity {
                                 int id = jsonObject.getInt("id");
                                 String name = jsonObject.getString("pokemon");
                                 String type = jsonObject.getString("type");
-                                String abilities = jsonObject.getString("abilities");
+
+                                // Parse the abilities array and convert it to a comma-separated string
+                                JSONArray abilitiesArray = jsonObject.getJSONArray("abilities");
+                                StringBuilder abilitiesBuilder = new StringBuilder();
+                                for (int j = 0; j < abilitiesArray.length(); j++) {
+                                    abilitiesBuilder.append(abilitiesArray.getString(j));
+                                    if (j < abilitiesArray.length() - 1) {
+                                        abilitiesBuilder.append(", ");
+                                    }
+                                }
+                                String abilities = abilitiesBuilder.toString();
+
                                 String imageURL = jsonObject.getString("image_url");
                                 String location = jsonObject.getString("location");
 
