@@ -6,7 +6,7 @@
     <string name="demoPokemonImage">https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png</string>
     <string name="pok_mon_image">Pokémon Image</string>
     <string name="don_t_show_this_again">Don\'t show this again!</string>
-    <string name="do_you_want_to_delete_this_pok_mon">Do You Want to Delete this Pokémon ?</string>
+    <string name="do_you_want_to_delete_this_pok_mon">Do You Want to Delete this ?</string>
     <string name="cancel">Cancel</string>
     <string name="no">Go Back</string>
     <string name="Yes">Yes</string>

@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="@string/do_you_want_to_delete_this_pok_mon"
             android:textStyle="italic"
-            android:textSize="15sp"
+            android:textSize="25sp"
             />
         
         <Space

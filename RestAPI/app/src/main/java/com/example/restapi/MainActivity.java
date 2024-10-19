@@ -28,18 +28,13 @@ import java.util.List;
 import Adapter.PokemonAdapter;
 import Model.Pokemon;
 
-
 import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.RecyclerView;
 import android.graphics.Canvas;
-import androidx.core.content.ContextCompat;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
+import androidx.appcompat.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-
-import androidx.appcompat.app.AlertDialog;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -80,63 +75,29 @@ public class MainActivity extends AppCompatActivity {
         // Initialize adapter and set it to RecyclerView
         pokemonAdapter = new PokemonAdapter(this, pokemonList);
         pokemonRecyclerView.setAdapter(pokemonAdapter); // Set the adapter
-        // Attach the ItemTouchHelper to the RecyclerView
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
-        itemTouchHelper.attachToRecyclerView(pokemonRecyclerView);
-
-        // Fetch the initial Pokemon list
-        getPokemonList();
 
         // Enable Swipe-to-Delete functionality
         enableSwipeToDelete();
+
+
+        // Temporary till some other solution is found
+        appPref = getSharedPreferences(PREF_NAME, 0);
+        boolean isChecked = appPref.getBoolean("dontShowAgain", false); // Default to false if not set
+
+        SharedPreferences.Editor editor = appPref.edit();
+        editor.putBoolean("dontShowAgain", false);
+        editor.apply();
+
+        // Fetch the initial Pokemon list
+        getPokemonList();
     }
-
-    ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-        @Override
-        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-            // We are not handling drag & drop, so return false
-            return false;
-        }
-
-        @Override
-        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            View dialogView = getLayoutInflater().inflate(R.layout.on_delete_dialog_box, null);
-            cancelButotn = dialogView.findViewById(R.id.cancelButton);
-            yesButton = dialogView.findViewById(R.id.yesButton);
-            dontShowAgainCheckBox = dialogView.findViewById(R.id.dontShowAgainCheckBox);
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            builder.setView(dialogView);
-
-            final AlertDialog dialog = builder.create();
-
-            yesButton.setOnClickListener(v -> {
-                // Remove the swiped item from the adapter
-                int position = viewHolder.getAdapterPosition();
-                pokemonList.remove(position);
-                pokemonAdapter.notifyItemRemoved(position);
-                //DISMISS THE DIALOG
-                dialog.dismiss();
-            });
-
-            cancelButotn.setOnClickListener(v -> {
-                pokemonAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
-                dialog.dismiss();
-            });
-
-            pokemonAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
-
-
-        }
-
-
-    };
 
     private void enableSwipeToDelete() {
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false; // We don't need drag & drop functionality
+                // No drag & drop functionality, return false
+                return false;
             }
 
             @Override
@@ -144,22 +105,33 @@ public class MainActivity extends AppCompatActivity {
                 // Get the swiped item's position
                 int position = viewHolder.getAdapterPosition();
 
-                // Remove the item from the dataset
-                pokemonList.remove(position);
+                appPref = getSharedPreferences(PREF_NAME,0);
+                boolean isDontShowAgainChecked = appPref.getBoolean("dontShowAgain", false);
 
-                // Notify the adapter about the removal
-                pokemonAdapter.notifyItemRemoved(position);
+                if(isDontShowAgainChecked){
+                    pokemonList.remove(position); // Remove the item from the list
+                    pokemonAdapter.notifyItemRemoved(position); // Notify the adapter
+                } else {
+                    // Show the delete confirmation dialog
+                    showDeleteDialog(viewHolder, position);
+                }
+
+
             }
+
             @Override
             public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView,
                                     @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY,
                                     int actionState, boolean isCurrentlyActive) {
-                // Custom drawing code for swipe (optional)
+                // Optional: Add custom swipe animation or drawing here
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
             }
         };
-    }
 
+        // Attach the ItemTouchHelper to the RecyclerView
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(pokemonRecyclerView);
+    }
 
     @Override
     protected void onStart() {
@@ -181,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Method to fetch the Pokemon list
+
     public void getPokemonList() {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("https://dummyapi.online/api/pokemon",
                 new Response.Listener<JSONArray>() {
@@ -230,5 +203,48 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         requestQueue.add(jsonArrayRequest); // Add the request to the queue
+    }
+    private void showDeleteDialog(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
+        // Inflate dialog layout
+        View dialogView = getLayoutInflater().inflate(R.layout.on_delete_dialog_box, null);
+        cancelButotn = dialogView.findViewById(R.id.cancelButton);
+        yesButton = dialogView.findViewById(R.id.yesButton);
+        dontShowAgainCheckBox = dialogView.findViewById(R.id.dontShowAgainCheckBox);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setView(dialogView);
+
+        final AlertDialog dialog = builder.create();
+
+        // Make sure the background click doesn't dismiss the dialog
+        dialog.setCanceledOnTouchOutside(false);
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+
+
+
+        dontShowAgainCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            appPref = getSharedPreferences(PREF_NAME, 0);
+            SharedPreferences.Editor editor = appPref.edit();
+            editor.putBoolean("dontShowAgain", isChecked);
+            editor.apply();
+        });
+
+        dialog.show(); // Show the dialog
+
+        // Set Yes button action (delete item)
+        yesButton.setOnClickListener(v -> {
+            pokemonList.remove(position); // Remove the item from the list
+            pokemonAdapter.notifyItemRemoved(position); // Notify the adapter
+            dialog.dismiss(); // Dismiss the dialog
+        });
+
+        // Set Cancel button action (restore item)
+        cancelButotn.setOnClickListener(v -> {
+            pokemonAdapter.notifyItemChanged(position); // Restore the item
+            dialog.dismiss(); // Dismiss the dialog
+        });
     }
 }
