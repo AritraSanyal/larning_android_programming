@@ -1,5 +1,6 @@
 package com.example.restapi;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -35,7 +36,10 @@ import androidx.core.content.ContextCompat;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
 
+import androidx.appcompat.app.AlertDialog;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +48,15 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView pokemonRecyclerView;
     private PokemonAdapter pokemonAdapter;
     private List<Pokemon> pokemonList;
+
+    private Button cancelButotn;
+    private Button yesButton;
+
+    CheckBox dontShowAgainCheckBox;
+
+    private SharedPreferences appPref;
+
+    private static final String PREF_NAME = "appPref";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,19 +100,36 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            // Remove the swiped item from the adapter
-            int position = viewHolder.getAdapterPosition();
-            pokemonList.remove(position);
-            pokemonAdapter.notifyItemRemoved(position);
+            View dialogView = getLayoutInflater().inflate(R.layout.on_delete_dialog_box, null);
+            cancelButotn = dialogView.findViewById(R.id.cancelButton);
+            yesButton = dialogView.findViewById(R.id.yesButton);
+            dontShowAgainCheckBox = dialogView.findViewById(R.id.dontShowAgainCheckBox);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setView(dialogView);
+
+            final AlertDialog dialog = builder.create();
+
+            yesButton.setOnClickListener(v -> {
+                // Remove the swiped item from the adapter
+                int position = viewHolder.getAdapterPosition();
+                pokemonList.remove(position);
+                pokemonAdapter.notifyItemRemoved(position);
+                //DISMISS THE DIALOG
+                dialog.dismiss();
+            });
+
+            cancelButotn.setOnClickListener(v -> {
+                pokemonAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
+                dialog.dismiss();
+            });
+
+            pokemonAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
+
+
         }
 
-        @Override
-        public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView,
-                                @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY,
-                                int actionState, boolean isCurrentlyActive) {
-            // Optional: Custom draw code for swipe background or icon
-            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-        }
+
     };
 
     private void enableSwipeToDelete() {
