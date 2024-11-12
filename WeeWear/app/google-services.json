@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "924102449829",
+    "project_id": "weeware-4f616",
+    "storage_bucket": "weeware-4f616.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:924102449829:android:c636e2f22f2ea0c21e8b4c",
+        "android_client_info": {
+          "package_name": "com.example.weewear"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAtu0sF4anIXuUyaiQLOirtilxprAY8Bk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
