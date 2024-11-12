@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                         getPokemonList();
                         swipeRefreshLayout.setRefreshing(false);
                     }
-                }, 4000); // 4-second delay for simulation
+                }, 1000); // 2-second delay for simulation
             }
         });
     }
